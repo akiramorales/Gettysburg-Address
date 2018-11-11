@@ -1,3 +1,8 @@
+/**
+ * @author Akira Morales
+ * Gettysburg Address
+ * Period 6
+ */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -13,29 +18,34 @@ public class GettysburgAddressMain {
 		{
 			words.add(file.next());
 		}
+		for(String fileIn : words)
+		{
+			if(fileIn.endsWith(",") || fileIn.endsWith("."))
+			{
+				fileIn = fileIn.substring(0, fileIn.length() - 1);
+			}
+			else if(fileIn.contains("--"))
+			{
+				fileIn = fileIn.substring(0, fileIn.indexOf("--"));
+			}
+		}
 		
-		String longestWord = "";
-		for(String wrd : words)
+		String longestWord = words.get(0);
+		for(String fileIn : words)
 		{
-			if(wrd.length() > (wrd+1).length())
+			if(longestWord.length() < fileIn.length())
 			{
-				longestWord = wrd;
-			}
-			else
-			{
-				longestWord = words.get(+1);
+				longestWord = fileIn;
 			}
 		}
-		System.out.println("The longest word is " + longestWord);
-		int numWords = 0;
-		int totalLength = 0;
-		for(String wrd : words)
+		System.out.println("The longest word is \"" + longestWord + "\".");
+		
+		double sum = 0;
+		for(String fileIn : words)
 		{
-			numWords ++;
-			totalLength = wrd.length();
+			sum += fileIn.length();
 		}
-		int averageLength = totalLength/numWords;
-		System.out.println("The average word length is " + averageLength + " letters long.");
+		System.out.println("The average word length is " + sum/words.size() + " letters.");
 	}
 
 }
